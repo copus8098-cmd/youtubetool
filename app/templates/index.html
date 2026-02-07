@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Tool</title>
+</head>
+<body>
+  <input id="url" placeholder="YouTube URL">
+  <button onclick="getThumb()">Thumbnail</button>
+
+  <img id="thumb" width="400"/>
+
+  <script>
+    async function getThumb() {
+      const url = document.getElementById("url").value
+      const res = await fetch(`/thumbnail?url=${encodeURIComponent(url)}`)
+      const data = await res.json()
+      document.getElementById("thumb").src = data.thumbnail
+    }
+  </script>
+</body>
+</html>

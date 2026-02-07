@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import audio, video, thumbnail, transcript
+from app.routes import audio, video, thumbnail, transcript
 
 app = FastAPI(title="YouTube Toolkit")
 

@@ -1,12 +1,17 @@
-from fastapi import FastAPI, Request
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routes import audio, video, thumbnail, transcript
 
-app = FastAPI()
+app = FastAPI(title="YouTube Toolkit")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get("/")
-def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+app.include_router(audio.router)
+app.include_router(video.router)
+app.include_router(thumbnail.router)
+app.include_router(transcript.router)
